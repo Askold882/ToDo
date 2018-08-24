@@ -1,0 +1,4 @@
+<h1>Hi - <%= @user.first_name%></h1>
+<img src="https://i.pinimg.com/originals/fb/93/d3/fb93d3ce917f538b65f39c7bd2b0b939.jpg">
+<h2> Click the link below ito confirm your email </h2>
+<%= link_to 'HELLO THERE !', "localhost:3000/users/confirm_token=" + @user.confirm_token %>
