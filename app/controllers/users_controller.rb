@@ -5,7 +5,7 @@ class UsersController < ApplicationController
       UserMailer.send_confirmation_email(user).deliver_now
       render json: { message: 'user created, now confirm your email' }
     else
-      render json: { errors: user.errors.full_messages.to_sentence }
+      render json: { error: user.errors.full_messages.to_sentence }
     end
   end
 
@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     user = User.find_by(confirm_token: params[:confirm_token])
     if user
       user.update(confirm_token: nil)
-      render json: { message: 'email confirmed' }
+      redirect_to new_session_path
     else
       render json: { error: 'wrong token' }
     end
@@ -22,6 +22,6 @@ class UsersController < ApplicationController
   private
   
   def user_params
-    params.permit(:email, :password, :first_name, :last_name)
+    params.require(:user).permit(:email, :password, :first_name, :last_name)
   end
 end

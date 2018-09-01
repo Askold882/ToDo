@@ -1,0 +1,23 @@
+<% if @tasks.where(done: false).count > 0 %>
+  <ul class="list-group">
+  <center><h2> active </h2></center>
+  <% @tasks.where(done: false).each do |task| %>
+    <li class="list-group-item">
+      <%= task.title %>
+      <span class="badge"> <%= task.priority %> </span>
+    </li>
+  <% end %>
+  </ul>
+<% end %>
+
+<% if @tasks.where(done: true).count > 0 %>
+  <ul class="list-group">
+  <center><h2> done </h2></center>
+  <% @tasks.where(done: true).each do |task| %>
+    <li class="list-group-item">
+      <%= task.title %>
+      <span class="badge"> <%= task.priority %> </span>
+    </li>
+  <% end %>
+  </ul>
+<% end %>

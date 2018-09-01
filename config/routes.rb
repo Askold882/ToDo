@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :users, only: [:create, :update], param: :confirm_token
+  resources :users, only: [:create]
+  get '/confirm_email', to: 'users#update'
+  resources :sessions
+  resources :tasks
 end
