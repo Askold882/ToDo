@@ -1,0 +1,9 @@
+<div class="bordered">
+<center>
+<h1> <%= @task.title %> </h1>
+<h2> <%= @task.description %> </h2>
+<h2> <%= "Priority: " + @task.priority.to_s %> </h2>
+<h2> <%= "Duedate: " + @task.duedate.to_s %> </h2>
+<h2> <%= "Done: " + @task.done.to_s %> </h2>
+</center>
+</div>

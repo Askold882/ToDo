@@ -1,23 +1,111 @@
+<div class="btn-group">
+    <button type="button" class="btn btn-primary" onclick="markAll()">Mark all</button>
+    <button type="button" class="btn btn-primary" onclick="unmarkAll()">Unmark all</button>
+    <button type="button" class="btn btn-danger" onclick="deleteMarked()">Delete marked</button>
+    <a href=<%= tasks_path + '?order=asc' %> <button type="button" class="btn btn-primary">Sort</button> </a>
+    <a href=<%= new_task_path %> > <button type="button" class="btn btn-success">New</button> </a>
+</div>
 <% if @tasks.where(done: false).count > 0 %>
-  <ul class="list-group">
+  <ul class="list-group" style='width: 50%'>
   <center><h2> active </h2></center>
   <% @tasks.where(done: false).each do |task| %>
     <li class="list-group-item">
-      <%= task.title %>
-      <span class="badge"> <%= task.priority %> </span>
+    <input type="checkbox" id=<%= task.id %> />
+      <a href=<%= task_path(task)%> > <%= task.title %> </a>
+    <div class='hided pull-right'>
+      <button type="button" class="btn btn-danger"  onclick=<%= 'deleteTask(' + task.id.to_s + ')' %> >Delete </button>
+      <a href=<%=edit_task_path(task) %>> <button type="button" class="btn btn-info" >Eddit</button> </a>
+      <button type="button" class="btn btn-primary" onclick=<%= 'doneTask(' + task.id.to_s + ')' %> >Done </button>
+    </div>
+      <%= task.priority %>
     </li>
   <% end %>
   </ul>
 <% end %>
 
 <% if @tasks.where(done: true).count > 0 %>
-  <ul class="list-group">
+  <ul class="list-group" style='width: 50%'>
   <center><h2> done </h2></center>
   <% @tasks.where(done: true).each do |task| %>
     <li class="list-group-item">
-      <%= task.title %>
-      <span class="badge"> <%= task.priority %> </span>
+    <input type="checkbox" id=<%= task.id %> />
+    <a href=<%= task_path(task)%> > <%= task.title %> </a>
+    <div class='hided pull-right'>  
+    <button type="button" class="btn btn-danger" onclick=<%= 'deleteTask(' + task.id.to_s + ')' %> >Delete </button>
+    <a href=<%=edit_task_path(task) %>> <button type="button" class="btn btn-info" >Eddit</button> </a>
+    <button type="button" class="btn btn-success" onclick=<%= 'activeTask(' + task.id.to_s + ')' %> >Active again </button>
+    </div>
+      <%= task.priority %>
     </li>
   <% end %>
   </ul>
 <% end %>
+
+<script>
+  function doneTask(id){
+    $.ajax({ url: '/tasks/' + id ,
+           type: 'PUT',
+           data: {done: 'true' },
+           success: function(result){
+             console.log(result)
+             if(result.errors){
+              $('#errors').text(result.errors)
+             }
+           }
+		});
+  }
+
+  function activeTask(id){
+    $.ajax({ url: '/tasks/' + id ,
+           type: 'PUT',
+           data: {done: 'false' },
+           success: function(result){
+             console.log(result)
+             if(result.errors){
+              $('#errors').text(result.errors)
+             }
+           }
+		});
+  }
+
+  function deleteTask(id){
+    $.ajax({ url: '/tasks/' + id ,
+           type: 'DELETE',
+           success: function(result){
+             console.log(result)
+             if(result.errors){
+              $('#errors').text(result.errors)
+             }
+           }
+		});
+  }
+
+  function markAll(){
+    $(":checkbox").each((item, value) =>{
+      $(value).attr('checked', true)
+    })
+  }
+
+  function unmarkAll(){
+    $(":checkbox").each((item, value) =>{
+      $(value).attr('checked', false)
+    })
+  }
+
+  function deleteMarked(){
+    var ids=[]
+    $(":checked").each((item, value) =>{
+      ids.push(value.id)
+    })
+    $.ajax({ url: '/tasks/0' ,
+             type: 'DELETE',
+             data: {batch: ids} , 
+             success: function(result){
+               console.log(result)
+               if(result.errors){
+                $('#errors').text(result.errors)
+               }
+             }
+		});
+  }
+</script>

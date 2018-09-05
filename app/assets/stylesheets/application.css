@@ -112,3 +112,29 @@
 	background-color: #1CA347;
 	border-color: #1CA347;
 }
+.list-group-item:hover > .hided{
+    display: inline;
+}
+
+.hided{
+    display: none;
+}
+
+.bordered{
+	border: 10px solid rgb(10, 96, 255); 
+	background-color: #8cf7f7; 
+	padding: 10px;
+}
+
+* {box-sizing:border-box;}
+.wrap {
+height: 200px;
+padding: 25px;
+}
+.gradient {
+height: 150px; 
+width: 50%; 
+margin: 0 auto;
+border: 10px solid transparent;
+border-image: 10 repeating-linear-gradient(45deg, #A7CECC, #A7CECC 10px, transparent 10px, transparent 20px, #F8463F 20px, #F8463F 30px,transparent 30px, transparent 40px);
+}

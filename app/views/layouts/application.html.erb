@@ -15,6 +15,11 @@
   </head>
 
   <body>
+    <% if @curent_user %>
+      <div class='btn btn-primary-outline' style='position:absolute; top:0; right:0;'>
+      <%= link_to 'Log Out',  'log_out' %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

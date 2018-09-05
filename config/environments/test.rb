@@ -41,8 +41,8 @@ Rails.application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
   ActionMailer::Base.smtp_settings = {
-    :user_name => '228mugivara228',
-    :password => '212121skrskr',
+    :user_name => 'bob.uaaaa',
+    :password => 'bob_ua111111',
     :domain => 'gmail.com',
     :address => 'smtp.gmail.com',
     :port => 587,

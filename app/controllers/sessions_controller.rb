@@ -16,4 +16,9 @@ class SessionsController < ApplicationController
       render json: {error: 'wrong data'}
     end
   end
+
+  def destroy
+    curent_user.regenerate_user_token
+    redirect_to new_session_path
+  end
 end
