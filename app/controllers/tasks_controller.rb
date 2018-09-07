@@ -4,7 +4,6 @@ class TasksController < ApplicationController
   def index
     @tasks = curent_user.tasks
     @tasks=@tasks.order(title: params[:order]) if params[:order].present?
-    p(@tasks)
   end
 
   def show
