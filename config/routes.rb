@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   resources :sessions
   resources :tasks
   namespace :api do
+    get '/confirm_email', to: 'users#update'
+    get '/log_out', to: 'sessions#destroy'
     resources :sessions
     resources :tasks
-  end
+    end
 end

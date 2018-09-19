@@ -3,7 +3,7 @@ class Api::ApplicationController < Api::ApiController
         user = User.new(user_params)
         if user.save
           UserMailer.send_confirmation_email(user).deliver_now
-          render json: { message: 'user created, now confirm your email' }
+          render json: { message: 'user created, now confirm your email' }, status: 200
         else
           render json: { tasks: @tasks }, status: 200
         end
@@ -15,7 +15,7 @@ class Api::ApplicationController < Api::ApiController
           user.update(confirm_token: nil)
           render json: {}, status: 200
         else
-          render json: { error: 'wrong token' }
+          render json: { error: 'wrong token' }, status:401
         end
       end
     
