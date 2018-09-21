@@ -12,22 +12,15 @@ class Api::TasksController < Api::ApiController
       render json: { tasks: @tasks }, status: 200
     end
   
-    def new
-    end
-  
     def create
       @task = curent_user.tasks.create(task_params)
       if @task.errors.any?
-        render json: { errors: @tasks }, status: 200
+        render json: { error: @task.errors.full_messages.to_sentence }, status: 402
       else
-        render json: { errors: @tasks }, status: 402
+        render json: {}, status: 200
       end
     end
-  
-    def edit
-      @task = curent_user.tasks.find(params[:id])
-    end
-  
+
     def update
       @task = curent_user.tasks.find(params[:id])
       @task.update(task_params)
@@ -47,7 +40,7 @@ class Api::TasksController < Api::ApiController
       else
         curent_user.tasks.find(params[:id]).destroy
       end
-      render json: {}, status: 200
+      render json: { message: 'success' }, status: 200
     end
   
     private
@@ -55,4 +48,4 @@ class Api::TasksController < Api::ApiController
     def task_params
       params.permit(:title, :description, :duedate, :priority, :done)
     end
-  end
+end
