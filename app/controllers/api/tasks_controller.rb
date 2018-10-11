@@ -9,7 +9,7 @@ class Api::TasksController < Api::ApiController
   
     def show
       @task = curent_user.tasks.find(params[:id])
-      render json: { tasks: @tasks }, status: 200
+      render json: { task: @task }, status: 200
     end
   
     def create
@@ -46,6 +46,6 @@ class Api::TasksController < Api::ApiController
     private
   
     def task_params
-      params.permit(:title, :description, :duedate, :priority, :done)
+      params.require(:task).permit(:title, :description, :duedate, :priority, :done)
     end
 end

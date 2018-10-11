@@ -12,6 +12,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jquery-rails'
 
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'rack-cors', require: 'rack/cors'
 
 group :development, :test do
   gem 'puma', '~> 3.11'

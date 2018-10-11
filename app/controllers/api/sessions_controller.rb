@@ -1,4 +1,13 @@
 class Api::SessionsController < Api::ApiController
+    def index
+      user = User.find_by(user_token: params[:user_token])
+      if user
+        render json: {}, status: 200
+      else
+        render json: {}, status: 401
+      end
+    end
+   
     def create
       user = User.find_by(email: params[:email])
       if user && user.authenticate(params[:password])
