@@ -17,11 +17,11 @@ RSpec.describe UsersController , type: :controller do
       "message" => "user created, now confirm your email"
     })
   end
-
+  
+  let(:user) { create(:user) }
   it 'confirm_email' do
-    User.create('last_name' => 'SpanchBob', 'first_name' => 'name', 'password' => '12341234', 'email' => 'sponge@gmail.com')
     patch :update,
-    params: {'confirm_token' => User.first.confirm_token}
+    params: {'confirm_token' => user.confirm_token}
     expect(response.status).to eql(302) 
     expect(User.first.confirm_token).to eql(nil)
   end

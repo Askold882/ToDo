@@ -11,17 +11,17 @@ RSpec.describe Api::UsersController, type: :controller do
 
   it 'create_good_user' do
     post :create,
-    params: {user: {'first_name' => 'Razor', 'last_name' => 'Vadimovich', 'password' => '555666', 'email' => 'razor12@gmail.com'}}
+    params: {user: {'first_name' => 'Razor', 'last_name' => 'Vadimovich', 'password' => '555666', 'email' => 'razor12@gmail.com'}, back_url: 'habrahabr.ru'}
     expect(JSON.parse(response.body)).to eql({
       "message" => "user created, now confirm your email"
     })
   end
 
+  let(:user) { create(:user) }
   it 'confirm_email' do
-    User.create('last_name' => 'SpanchBob', 'first_name' => 'name', 'password' => '12341234', 'email' => 'sponge@gmail.com')
     patch :update,
-    params: {'confirm_token' => User.first.confirm_token}
-    expect(response.status).to eql(302) 
+    params: {'confirm_token' => user.confirm_token}
+    expect(response.status).to eql(200) 
     expect(User.first.confirm_token).to eql(nil)
   end
 end

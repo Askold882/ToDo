@@ -1,4 +1,4 @@
-class Api::ApiController < ApplicationController 
+class Api::ApiController < ApplicationController
 
   private
 

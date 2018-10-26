@@ -17,6 +17,7 @@ gem 'rack-cors', require: 'rack/cors'
 group :development, :test do
   gem 'puma', '~> 3.11'
   gem 'sqlite3'
+  gem 'shoulda-matchers'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
@@ -33,7 +34,8 @@ group :test do
   gem 'chromedriver-helper'
   gem 'rspec'
   gem 'rspec-rails'
-  gem 'factory_bot'
+  gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :production do
